@@ -1,6 +1,4 @@
-Absolutely. For **Sitecmd v1**, I'd make the README clean and project-focused — explain the idea, how it works, features, and basic usage without turning it into a massive documentation dump.
 
-````md
 # Sitecmd
 
 Turn websites into programmable tools.
