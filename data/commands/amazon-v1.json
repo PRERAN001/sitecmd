@@ -1,0 +1,257 @@
+{
+  "name": "amazon-v1",
+  "site": "https://amazon.com",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "default": "chair"
+    }
+  ],
+  "steps": [
+    {
+      "action": "navigate",
+      "url": "https://www.amazon.com/"
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": "twotabsearchtextbox",
+        "name": "field-keywords",
+        "ariaLabel": "Search Amazon",
+        "placeholder": "Search Amazon",
+        "type": "text",
+        "href": null,
+        "selector": "#twotabsearchtextbox"
+      }
+    },
+    {
+      "action": "change",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": "twotabsearchtextbox",
+        "name": "field-keywords",
+        "ariaLabel": "Search Amazon",
+        "placeholder": "Search Amazon",
+        "type": "text",
+        "href": null,
+        "selector": "#twotabsearchtextbox",
+        "value": "controller",
+        "checked": null
+      },
+      "value": "{{query}}"
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": "nav-search-submit-button",
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": null,
+        "type": "submit",
+        "href": null,
+        "selector": "#nav-search-submit-button"
+      }
+    },
+    {
+      "action": "submit",
+      "target": {
+        "tag": "FORM",
+        "text": "All\nAll Departments\nAlexa Skills\nAmazon Autos\nAmazon Devices\nAmazon Fresh\nAmazon Global Store\nAmazon Haul\nAmazon One Medical\nAmazon Pharmacy\nAmazon Resale\nAppliances\nApps & Games\nArts, Crafts & Sewing",
+        "id": "nav-search-bar-form",
+        "name": "site-search",
+        "ariaLabel": null,
+        "placeholder": null,
+        "type": null,
+        "href": null,
+        "selector": "#nav-search-bar-form"
+      }
+    },
+    {
+      "action": "navigate",
+      "url": "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=controller&crid=PUXPGLUKKOME&sprefix=controller%2Caps%2C385"
+    },
+    {
+      "action": "navigate",
+      "url": "https://www.amazon.com/s?k=controller&crid=PUXPGLUKKOME&sprefix=controller%2Caps%2C385&ref=nb_sb_noss_1"
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "SPAN",
+        "text": "Sort by:",
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": null,
+        "type": null,
+        "href": null,
+        "selector": "span#a-autoid-0-announce > span:nth-of-type(1)"
+      }
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "A",
+        "text": "Newest Arrivals",
+        "id": "s-result-sort-select_4",
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": null,
+        "type": null,
+        "href": "javascript:void(0)",
+        "selector": "#s-result-sort-select_4"
+      }
+    },
+    {
+      "action": "navigate",
+      "url": "https://www.amazon.com/s?k=controller&s=date-desc-rank&crid=PUXPGLUKKOME&qid=1787580715&sprefix=controller%2Caps%2C385&ref=sr_st_date-desc-rank&ds=v1%3AktisvhKaElMJqRKsQx4iJGxKIcbO%2FlagS37y%2BPDLHBo"
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": null,
+        "name": "submit.addToCart",
+        "ariaLabel": "Add to cart",
+        "placeholder": null,
+        "type": "submit",
+        "href": null,
+        "selector": "input[name=\"submit\\.addToCart\"]"
+      }
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": null,
+        "name": "submit.addToCart",
+        "ariaLabel": "Add to cart",
+        "placeholder": null,
+        "type": "submit",
+        "href": null,
+        "selector": "input[name=\"submit\\.addToCart\"]"
+      }
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "DIV",
+        "text": "All\nAll Departments\nAlexa Skills\nAmazon Autos\nAmazon Devices\nAmazon Fresh\nAmazon Global Store\nAmazon Haul\nAmazon One Medical\nAmazon Pharmacy\nAmazon Resale\nAppliances\nApps & Games\nArts, Crafts & Sewing",
+        "id": "nav-fill-search",
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": null,
+        "type": null,
+        "href": null,
+        "selector": "#nav-fill-search"
+      }
+    },
+    {
+      "action": "change",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": "twotabsearchtextbox",
+        "name": "field-keywords",
+        "ariaLabel": "Search Amazon",
+        "placeholder": "Search Amazon",
+        "type": "text",
+        "href": null,
+        "selector": "#twotabsearchtextbox",
+        "value": "chair",
+        "checked": null
+      },
+      "value": "{{query}}"
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": "nav-search-submit-button",
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": null,
+        "type": "submit",
+        "href": null,
+        "selector": "#nav-search-submit-button"
+      }
+    },
+    {
+      "action": "submit",
+      "target": {
+        "tag": "FORM",
+        "text": "All\nAll Departments\nAlexa Skills\nAmazon Autos\nAmazon Devices\nAmazon Fresh\nAmazon Global Store\nAmazon Haul\nAmazon One Medical\nAmazon Pharmacy\nAmazon Resale\nAppliances\nApps & Games\nArts, Crafts & Sewing",
+        "id": "nav-search-bar-form",
+        "name": "site-search",
+        "ariaLabel": null,
+        "placeholder": null,
+        "type": null,
+        "href": null,
+        "selector": "#nav-search-bar-form"
+      }
+    },
+    {
+      "action": "navigate",
+      "url": "https://www.amazon.com/s?crid=2QD4VYXU6HWUE&i=aps&k=chair&ref=nb_sb_noss_2&sprefix=chai%2Caps%2C399&url=search-alias%3Daps"
+    },
+    {
+      "action": "navigate",
+      "url": "https://www.amazon.com/s?k=chair&crid=2QD4VYXU6HWUE&sprefix=chai%2Caps%2C399&ref=nb_sb_noss_2"
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": null,
+        "name": "submit.addToCart",
+        "ariaLabel": "Add to cart",
+        "placeholder": null,
+        "type": "submit",
+        "href": null,
+        "selector": "input[name=\"submit\\.addToCart\"]"
+      }
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": null,
+        "name": "submit.addToCart",
+        "ariaLabel": "Add to cart",
+        "placeholder": null,
+        "type": "submit",
+        "href": null,
+        "selector": "input[name=\"submit\\.addToCart\"]"
+      }
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "A",
+        "text": "4\nCart",
+        "id": "nav-cart",
+        "name": null,
+        "ariaLabel": "4 items in cart",
+        "placeholder": null,
+        "type": null,
+        "href": "https://www.amazon.com/gp/cart/view.html?ref_=nav_cart",
+        "selector": "#nav-cart"
+      }
+    },
+    {
+      "action": "navigate",
+      "url": "https://www.amazon.com/gp/cart/view.html?ref_=nav_cart"
+    }
+  ]
+}

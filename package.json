@@ -1,18 +1,31 @@
 {
   "name": "sitecmd",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "bin":{
-    "sitecmd":"./src/cli/index.js"
+  "description": "Turn any website into a programmable CLI tool",
+  "main": "./src/cli/index.js",
+  "bin": {
+    "sitecmd": "./src/cli/index.js"
   },
+  "type": "module",
+  "files": [
+    "src/",
+    "README.md"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test"
   },
-  "keywords": [],
+  "keywords": [
+    "cli",
+    "browser-automation",
+    "playwright",
+    "automation",
+    "no-code",
+    "web-automation",
+    "sitecmd",
+    "web-scraping"
+  ],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
     "commander": "^15.0.0",
     "playwright": "^1.62.1"

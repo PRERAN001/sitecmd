@@ -1,0 +1,538 @@
+{
+  "name": "loll",
+  "site": "https://blinkit.com",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "default": "school kit"
+    },
+    {
+      "name": "save_as",
+      "type": "number",
+      "default": 45
+    },
+    {
+      "name": "param",
+      "type": "string",
+      "default": "asdasd"
+    }
+  ],
+  "steps": [
+    {
+      "action": "navigate",
+      "url": "https://blinkit.com/"
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "A",
+        "text": "!\nSearch \"sugar\"\nSearch \"butter\"\nSearch \"paneer\"\nSearch \"chocolate\"\nSearch \"curd\"\nSearch \"rice\"\nSearch \"egg\"\nSearch \"chips\"",
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": null,
+        "type": null,
+        "href": "https://blinkit.com/s/",
+        "selector": "div#app > div > div > div:nth-of-type(1) > header > div:nth-of-type(2) > a"
+      }
+    },
+    {
+      "action": "navigate",
+      "url": "https://blinkit.com/s/"
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": "Search for atta dal and more",
+        "type": null,
+        "href": null,
+        "selector": "input[placeholder=\"Search\\ for\\ atta\\ dal\\ and\\ more\"]"
+      }
+    },
+    {
+      "action": "input",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": "Search for atta dal and more",
+        "type": null,
+        "href": null,
+        "selector": "input[placeholder=\"Search\\ for\\ atta\\ dal\\ and\\ more\"]",
+        "value": "prin"
+      },
+      "value": "{{query}}"
+    },
+    {
+      "action": "navigate",
+      "url": "https://blinkit.com/s/?q=prin"
+    },
+    {
+      "action": "input",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": "Search for atta dal and more",
+        "type": null,
+        "href": null,
+        "selector": "input[placeholder=\"Search\\ for\\ atta\\ dal\\ and\\ more\"]",
+        "value": "printer"
+      },
+      "value": "{{query}}"
+    },
+    {
+      "action": "navigate",
+      "url": "https://blinkit.com/s/?q=printer"
+    },
+    {
+      "action": "change",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": "Search for atta dal and more",
+        "type": null,
+        "href": null,
+        "selector": "input[placeholder=\"Search\\ for\\ atta\\ dal\\ and\\ more\"]",
+        "value": "printer",
+        "checked": null
+      },
+      "value": "{{query}}"
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "DIV",
+        "text": "ADD",
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": null,
+        "type": null,
+        "href": null,
+        "selector": "div#\\35 57732 > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2)"
+      }
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "HEADER",
+        "text": "!\np\nr\n1 item\n₹3529",
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": null,
+        "type": null,
+        "href": null,
+        "selector": "div#app > div > div > div:nth-of-type(1) > header"
+      }
+    },
+    {
+      "action": "input",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": "Search for atta dal and more",
+        "type": null,
+        "href": null,
+        "selector": "input[placeholder=\"Search\\ for\\ atta\\ dal\\ and\\ more\"]",
+        "value": ""
+      },
+      "value": "{{query}}"
+    },
+    {
+      "action": "navigate",
+      "url": "https://blinkit.com/s/"
+    },
+    {
+      "action": "input",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": "Search for atta dal and more",
+        "type": null,
+        "href": null,
+        "selector": "input[placeholder=\"Search\\ for\\ atta\\ dal\\ and\\ more\"]",
+        "value": "s"
+      },
+      "value": "{{query}}"
+    },
+    {
+      "action": "navigate",
+      "url": "https://blinkit.com/s/"
+    },
+    {
+      "action": "input",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": "Search for atta dal and more",
+        "type": null,
+        "href": null,
+        "selector": "input[placeholder=\"Search\\ for\\ atta\\ dal\\ and\\ more\"]",
+        "value": "sch"
+      },
+      "value": "{{query}}"
+    },
+    {
+      "action": "navigate",
+      "url": "https://blinkit.com/s/?q=sch"
+    },
+    {
+      "action": "input",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": "Search for atta dal and more",
+        "type": null,
+        "href": null,
+        "selector": "input[placeholder=\"Search\\ for\\ atta\\ dal\\ and\\ more\"]",
+        "value": "school"
+      },
+      "value": "{{query}}"
+    },
+    {
+      "action": "navigate",
+      "url": "https://blinkit.com/s/?q=school"
+    },
+    {
+      "action": "input",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": "Search for atta dal and more",
+        "type": null,
+        "href": null,
+        "selector": "input[placeholder=\"Search\\ for\\ atta\\ dal\\ and\\ more\"]",
+        "value": "school "
+      },
+      "value": "{{query}}"
+    },
+    {
+      "action": "navigate",
+      "url": "https://blinkit.com/s/?q=school%20"
+    },
+    {
+      "action": "input",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": "Search for atta dal and more",
+        "type": null,
+        "href": null,
+        "selector": "input[placeholder=\"Search\\ for\\ atta\\ dal\\ and\\ more\"]",
+        "value": "school k"
+      },
+      "value": "{{query}}"
+    },
+    {
+      "action": "navigate",
+      "url": "https://blinkit.com/s/?q=school%20k"
+    },
+    {
+      "action": "change",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": "Search for atta dal and more",
+        "type": null,
+        "href": null,
+        "selector": "input[placeholder=\"Search\\ for\\ atta\\ dal\\ and\\ more\"]",
+        "value": "school kit",
+        "checked": null
+      },
+      "value": "{{query}}"
+    },
+    {
+      "action": "navigate",
+      "url": "https://blinkit.com/s/?q=school%20kit"
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "DIV",
+        "text": "ADD",
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": null,
+        "type": null,
+        "href": null,
+        "selector": "div#\\37 55876 > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2)"
+      }
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "DIV",
+        "text": "₹3728",
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": null,
+        "type": null,
+        "href": null,
+        "selector": "div#app > div > div > div:nth-of-type(1) > header > div:nth-of-type(3) > div > div > div:nth-of-type(2) > div:nth-of-type(2)"
+      }
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "DIV",
+        "text": "₹3733\nTOTAL",
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": null,
+        "type": null,
+        "href": null,
+        "selector": "div:nth-of-type(4) > div > div > div > div > div > div:nth-of-type(2) > div:nth-of-type(12) > div > div > div > div > div > div > div:nth-of-type(1)"
+      }
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "DIV",
+        "text": "Add a new address",
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": null,
+        "type": null,
+        "href": null,
+        "selector": "div:nth-of-type(4) > div > div > div > div > div > div:nth-of-type(2) > div:nth-of-type(1)"
+      }
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "SPAN",
+        "text": "Other",
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": null,
+        "type": null,
+        "href": null,
+        "selector": "div:nth-of-type(8) > div > div > div:nth-of-type(2) > div > div:nth-of-type(2) > div:nth-of-type(1) > div > div:nth-of-type(2) > div:nth-of-type(4) > div > span"
+      }
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": "address",
+        "name": "address",
+        "ariaLabel": null,
+        "placeholder": " ",
+        "type": "text",
+        "href": null,
+        "selector": "#address"
+      }
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": "save_as",
+        "name": "save_as",
+        "ariaLabel": null,
+        "placeholder": "Save as",
+        "type": "text",
+        "href": null,
+        "selector": "#save_as"
+      }
+    },
+    {
+      "action": "change",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": "save_as",
+        "name": "save_as",
+        "ariaLabel": null,
+        "placeholder": "Save as",
+        "type": "text",
+        "href": null,
+        "selector": "#save_as",
+        "value": "45",
+        "checked": null
+      },
+      "value": "{{save_as}}"
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": "address",
+        "name": "address",
+        "ariaLabel": null,
+        "placeholder": " ",
+        "type": "text",
+        "href": null,
+        "selector": "#address"
+      }
+    },
+    {
+      "action": "change",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": "address",
+        "name": "address",
+        "ariaLabel": null,
+        "placeholder": " ",
+        "type": "text",
+        "href": null,
+        "selector": "#address",
+        "value": "aura",
+        "checked": null
+      },
+      "value": "{{param}}"
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": "floor",
+        "name": "floor",
+        "ariaLabel": null,
+        "placeholder": " ",
+        "type": "text",
+        "href": null,
+        "selector": "#floor"
+      }
+    },
+    {
+      "action": "change",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": "floor",
+        "name": "floor",
+        "ariaLabel": null,
+        "placeholder": " ",
+        "type": "text",
+        "href": null,
+        "selector": "#floor",
+        "value": "l",
+        "checked": null
+      },
+      "value": "{{param}}"
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": "landmark",
+        "name": "landmark",
+        "ariaLabel": null,
+        "placeholder": " ",
+        "type": "text",
+        "href": null,
+        "selector": "#landmark"
+      }
+    },
+    {
+      "action": "change",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": "landmark",
+        "name": "landmark",
+        "ariaLabel": null,
+        "placeholder": " ",
+        "type": "text",
+        "href": null,
+        "selector": "#landmark",
+        "value": "asad",
+        "checked": null
+      },
+      "value": "{{param}}"
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": "name",
+        "name": "name",
+        "ariaLabel": null,
+        "placeholder": " ",
+        "type": "text",
+        "href": null,
+        "selector": "#name"
+      }
+    },
+    {
+      "action": "change",
+      "target": {
+        "tag": "INPUT",
+        "text": null,
+        "id": "name",
+        "name": "name",
+        "ariaLabel": null,
+        "placeholder": " ",
+        "type": "text",
+        "href": null,
+        "selector": "#name",
+        "value": "asdasd",
+        "checked": null
+      },
+      "value": "{{param}}"
+    },
+    {
+      "action": "click",
+      "target": {
+        "tag": "DIV",
+        "text": "Save Address",
+        "id": null,
+        "name": null,
+        "ariaLabel": null,
+        "placeholder": null,
+        "type": null,
+        "href": null,
+        "selector": "div:nth-of-type(8) > div > div > div:nth-of-type(2) > div > div:nth-of-type(3) > div > div"
+      }
+    }
+  ]
+}
