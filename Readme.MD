@@ -1,6 +1,7 @@
 # sitecmd
 
 > Turn any website into a programmable CLI tool.
+> (dont check the website most of the things are to be built )
 
 `sitecmd` is a CLI tool that lets you record user interactions on any website and compile them into reusable, parameterized CLI commands. Perform a task once in your browser—like searching products, filling forms, or navigating dashboards—and run it whenever you want directly from your terminal.
 
