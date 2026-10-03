@@ -128,7 +128,7 @@ export default function App() {
               Runs locally. Zero cloud LLM calls.
             </p>
             <h1 className="display mt-6 text-[56px] font-extrabold leading-[0.92] sm:text-[80px] lg:text-[92px]">
-              Click it once.
+              Run it once.
               <br />
               <span className="relative inline-block text-[#FF5A1F]">
                 Run it forever.
