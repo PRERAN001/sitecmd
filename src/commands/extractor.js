@@ -1,142 +1,40 @@
-export function extractParameterName(target) {
-    if (!target) {
-        return "param";
+export function isSameTarget(t1, t2) {
+    if (!t1 || !t2) return false;
+    if (t1 === t2) return true;
+
+    if (t1.selector && t2.selector && t1.selector === t2.selector) {
+        return true;
     }
-
-    const rawLabel =
-        target.ariaLabel ||
-        target.placeholder ||
-        target.name ||
-        target.text ||
-        target.id ||
-        "";
-
-    const cleanText = String(rawLabel).trim();
-    if (!cleanText) {
-        return "param";
+    if (t1.id && t2.id && t1.id === t2.id) {
+        return true;
     }
-
-    const lower = cleanText.toLowerCase();
-
-    // 1. Search / Query heuristics
+    if (t1.name && t2.name && t1.name === t2.name) {
+        return true;
+    }
     if (
-        lower.includes("search") ||
-        lower.includes("find ") ||
-        lower.includes("lookup") ||
-        lower === "q" ||
-        lower === "query" ||
-        lower === "keywords"
+        t1.placeholder &&
+        t2.placeholder &&
+        t1.placeholder === t2.placeholder
     ) {
-        return "query";
+        return true;
     }
-
-    // 2. Address / Location heuristics
     if (
-        lower.includes("address") ||
-        lower.includes("street") ||
-        lower.includes("delivery")
+        t1.ariaLabel &&
+        t2.ariaLabel &&
+        t1.ariaLabel === t2.ariaLabel
     ) {
-        return "address";
+        return true;
     }
-
-    if (
-        lower.includes("pincode") ||
-        lower.includes("pin code") ||
-        lower.includes("zip") ||
-        lower.includes("postal")
-    ) {
-        return "pincode";
-    }
-
-    if (lower.includes("city")) return "city";
-    if (lower.includes("state")) return "state";
-    if (lower.includes("country")) return "country";
-
-    // 3. Quantity / Count heuristics
-    if (
-        lower.includes("quantity") ||
-        lower.includes("qty") ||
-        lower.includes("how many") ||
-        lower.includes("count")
-    ) {
-        return "quantity";
-    }
-
-    // 4. Rating / Price heuristics
-    if (lower.includes("rating") || lower.includes("stars")) {
-        if (
-            lower.includes("min") ||
-            lower.includes("lowest") ||
-            lower.includes("from")
-        ) {
-            return "min_rating";
-        }
-        if (
-            lower.includes("max") ||
-            lower.includes("highest") ||
-            lower.includes("to")
-        ) {
-            return "max_rating";
-        }
-        return "rating";
-    }
-
-    if (
-        lower.includes("price") ||
-        lower.includes("cost") ||
-        lower.includes("amount")
-    ) {
-        if (
-            lower.includes("min") ||
-            lower.includes("lowest") ||
-            lower.includes("from")
-        ) {
-            return "min_price";
-        }
-        if (
-            lower.includes("max") ||
-            lower.includes("highest") ||
-            lower.includes("to")
-        ) {
-            return "max_price";
-        }
-        return "price";
-    }
-
-    // 5. User details heuristics
-    if (lower.includes("email") || lower.includes("e-mail")) return "email";
-    if (lower.includes("username") || lower.includes("user name")) return "username";
-    if (lower.includes("password") || lower.includes("passcode")) return "password";
-    if (lower.includes("phone") || lower.includes("mobile")) return "phone";
-    if (lower.includes("first name") || lower.includes("firstname")) return "first_name";
-    if (lower.includes("last name") || lower.includes("lastname")) return "last_name";
-
-    // 6. Generic cleaning fallback
-    let sanitized = lower
-        .replace(/^(enter|input|type|select|provide|write|choose|search\s+for|search)\s+/gi, "")
-        .replace(/\s+(and\s+more|etc|here|please|\.\.\.)$/gi, "")
-        .trim();
-
-    if (!sanitized) {
-        sanitized = lower;
-    }
-
-    let normalized = sanitized
-        .replace(/[^a-z0-9]+/g, "_")
-        .replace(/^_+|_+$/g, "");
-
-    normalized = normalized
-        .replace(/^minimum_/, "min_")
-        .replace(/^maximum_/, "max_");
-
-    return normalized || "param";
+    return false;
 }
 
 export function extractParameters(actions) {
     const parameters = [];
-    const paramMap = new Map();
+    const targetMap = [];
 
-    for (const action of actions) {
+    for (let i = 0; i < actions.length; i++) {
+        const action = actions[i];
+
         if (
             action.type !== "input" &&
             action.type !== "change"
@@ -145,36 +43,183 @@ export function extractParameters(actions) {
         }
 
         const target = action.target;
-        if (!target) {
+        if (!target) continue;
+
+        const value = target.value;
+        if (value === undefined || value === null || value === "") {
             continue;
         }
 
-        const value = target.value;
+        let existingTargetEntry = targetMap.find(entry => isSameTarget(entry.target, target));
+
+        if (existingTargetEntry) {
+            const paramIndex = existingTargetEntry.paramIndex;
+            parameters[paramIndex].default = normalizeValue(target, value);
+            action._parameterName = existingTargetEntry.parameterName;
+
+            replaceNavigationValue(
+                actions,
+                i,
+                value,
+                existingTargetEntry.parameterName
+            );
+            continue;
+        }
+
+        const rawName = extractRawParameterName(target);
+        if (!rawName) continue;
+
+        let parameterName = normalizeParameterName(rawName);
+
+        let disambiguatedName = parameterName;
+        let count = 2;
+        while (parameters.some(p => p.name === disambiguatedName)) {
+            disambiguatedName = `${parameterName}_${count++}`;
+        }
+
+        parameterName = disambiguatedName;
+        action._parameterName = parameterName;
+
+        const paramIndex = parameters.length;
+        parameters.push({
+            name: parameterName,
+            type: inferType(target, value),
+            default: normalizeValue(target, value)
+        });
+
+        targetMap.push({
+            target,
+            parameterName,
+            paramIndex
+        });
+
+        replaceNavigationValue(
+            actions,
+            i,
+            value,
+            parameterName
+        );
+    }
+
+    return {
+        parameters,
+        actions
+    };
+}
+
+function extractRawParameterName(target) {
+    if (!target) return null;
+
+    const raw =
+        target.name ||
+        target.placeholder ||
+        target.ariaLabel ||
+        target.id;
+
+    if (raw) return raw;
+
+    if (target.selector) {
+        const match = target.selector.match(/(?:#|\[name=["']?|\[data-testid=["']?)([a-zA-Z0-9_-]+)/);
+        if (match) return match[1];
+    }
+
+    return null;
+}
+
+export function extractParameterName(target) {
+    const raw = extractRawParameterName(target);
+    if (!raw) return null;
+    return normalizeParameterName(raw);
+}
+
+export function normalizeParameterName(value) {
+    if (!value || typeof value !== "string") return "param";
+
+    const cleanRaw = value.trim().toLowerCase();
+
+    if (/search|find|query|lookup|seek/i.test(cleanRaw) || cleanRaw === "q") {
+        return "query";
+    }
+
+    if (/address|delivery_address|street|location/i.test(cleanRaw)) {
+        return "address";
+    }
+
+    if (/quantity|qty|count|amount/i.test(cleanRaw)) {
+        return "quantity";
+    }
+
+    if (/rating|stars/i.test(cleanRaw)) {
+        if (/min/i.test(cleanRaw)) return "min_rating";
+        if (/max/i.test(cleanRaw)) return "max_rating";
+        return "rating";
+    }
+
+    if (/price|cost|budget/i.test(cleanRaw)) {
+        if (/max/i.test(cleanRaw)) return "max_price";
+        if (/min/i.test(cleanRaw)) return "min_price";
+        return "price";
+    }
+
+    if (/pincode|zip|postal/i.test(cleanRaw)) {
+        return "pincode";
+    }
+
+    let normalized = cleanRaw
+        .replace(/\b(enter|type|input|your|for|and|more|please|select|filter|by)\b/gi, "")
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "");
+
+    if (!normalized) {
+        normalized = cleanRaw
+            .replace(/[^a-z0-9]+/g, "_")
+            .replace(/^_+|_+$/g, "");
+    }
+
+    return normalized || "param";
+}
+
+function replaceNavigationValue(
+    actions,
+    startIndex,
+    value,
+    parameterName
+) {
+    const placeholder = `{{${parameterName}}}`;
+    const valueStr = String(value);
+
+    for (let i = startIndex + 1; i < actions.length; i++) {
+        const action = actions[i];
+
         if (
-            value === undefined ||
-            value === null ||
-            value === ""
+            action.type !== "navigate" ||
+            !action.url
         ) {
             continue;
         }
 
-        const parameterName = extractParameterName(target);
+        try {
+            const url = new URL(action.url);
 
-        if (paramMap.has(parameterName)) {
-            const existingParam = paramMap.get(parameterName);
-            existingParam.default = normalizeValue(target, value);
-        } else {
-            const newParam = {
-                name: parameterName,
-                type: inferType(target, value),
-                default: normalizeValue(target, value)
-            };
-            paramMap.set(parameterName, newParam);
-            parameters.push(newParam);
+            let changed = false;
+
+            for (const [key, paramValue] of url.searchParams.entries()) {
+                const decodedParam = decodeURIComponent(paramValue.replace(/\+/g, " "));
+                if (paramValue === valueStr || decodedParam === valueStr) {
+                    url.searchParams.set(key, placeholder);
+                    changed = true;
+                }
+            }
+
+            if (changed) {
+                action.url = url.toString()
+                    .replace(/%7B%7B/gi, "{{")
+                    .replace(/%7D%7D/gi, "}}");
+            }
+        } catch {
+            continue;
         }
     }
-
-    return parameters;
 }
 
 function inferType(target, value) {
@@ -182,7 +227,7 @@ function inferType(target, value) {
         return "number";
     }
 
-    if (target.type === "checkbox") {
+    if (target.type === "checkbox" || target.type === "radio") {
         return "boolean";
     }
 
@@ -193,7 +238,15 @@ function inferType(target, value) {
         return "date";
     }
 
-    if (!Number.isNaN(Number(value)) && value !== "") {
+    if (typeof value === "boolean") {
+        return "boolean";
+    }
+
+    if (typeof value === "number") {
+        return "number";
+    }
+
+    if (value !== "" && !Number.isNaN(Number(value)) && !isNaN(value)) {
         return "number";
     }
 
@@ -205,13 +258,19 @@ function normalizeValue(target, value) {
         return Number(value);
     }
 
-    if (target.type === "checkbox") {
+    if (target.type === "checkbox" || target.type === "radio") {
         return Boolean(value);
     }
 
+    if (typeof value === "boolean") {
+        return value;
+    }
+
     if (
+        value !== "" &&
         !Number.isNaN(Number(value)) &&
-        value !== ""
+        !isNaN(value) &&
+        typeof value !== "boolean"
     ) {
         return Number(value);
     }

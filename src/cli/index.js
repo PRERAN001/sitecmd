@@ -47,7 +47,7 @@ const program = new Command();
 program
     .name("sitecmd")
     .description("Turn websites into programmable tools")
-    .version("0.1.0");
+    .version("0.1.4");
 
 function waitForEnter() {
     return new Promise((resolve) => {

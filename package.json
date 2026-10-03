@@ -1,19 +1,7 @@
 {
   "name": "sitecmd",
-  "version": "1.0.0",
+  "version": "0.1.7",
   "description": "Turn any website into a programmable CLI tool",
-  "main": "./src/cli/index.js",
-  "bin": {
-    "sitecmd": "./src/cli/index.js"
-  },
-  "type": "module",
-  "files": [
-    "src/",
-    "README.md"
-  ],
-  "scripts": {
-    "test": "node --test"
-  },
   "keywords": [
     "cli",
     "browser-automation",
@@ -24,10 +12,32 @@
     "sitecmd",
     "web-scraping"
   ],
-  "author": "",
+  "homepage": "https://github.com/PRERAN001/sitecmd#readme",
+  "bugs": {
+    "url": "https://github.com/PRERAN001/sitecmd/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PRERAN001/sitecmd.git"
+  },
   "license": "ISC",
+  "author": "Preran",
+  "type": "module",
+  "main": "./src/cli/index.js",
+  "bin": {
+    "sitecmd": "src/cli/index.js"
+  },
+  "files": [
+    "src/",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
   "dependencies": {
     "commander": "^15.0.0",
-    "playwright": "^1.62.1"
+    "express": "^5.2.1",
+    "playwright": "^1.62.1",
+    "ws": "^8.21.3"
   }
 }

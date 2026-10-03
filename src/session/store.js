@@ -1,12 +1,8 @@
 import fs from "fs/promises";
 import path from "path";
-import { fileURLToPath } from "url";
+import os from "os";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const PROJECT_ROOT = path.resolve(__dirname, "../../");
-const PROFILES_DIR = path.join(PROJECT_ROOT, "data", "profiles");
+const PROFILES_DIR = path.join(os.homedir(), ".sitecmd", "profiles");
 
 export async function initializeSessionStore() {
     await fs.mkdir(PROFILES_DIR, {

@@ -2,18 +2,19 @@ export async function runCommand(page, command, parameters = {}) {
     for (const step of command.steps || []) {
         switch (step.action) {
             case "navigate":
-                await executeNavigate(page, step);
+                await executeNavigate(page, step, parameters, command.parameters);
                 break;
 
             case "wait":
-                await executeWait(page, step);
+                await executeWait(page, step, parameters, command.parameters);
                 break;
 
             case "click":
                 await executeClick(
                     page,
                     step,
-                    parameters
+                    parameters,
+                    command.parameters
                 );
                 break;
 
@@ -35,33 +36,36 @@ export async function runCommand(page, command, parameters = {}) {
     }
 }
 
-async function executeNavigate(page, step) {
+async function executeNavigate(page, step, parameters, commandParameters) {
     if (!step.url) {
         throw new Error("Navigate action has no URL");
     }
 
-    console.log(`Navigating to ${step.url}...`);
-    await page.goto(step.url, { waitUntil: "domcontentloaded" });
+    const url = resolveTemplateString(step.url, parameters, commandParameters);
+    console.log(`Navigating to ${url}...`);
+    await page.goto(url, { waitUntil: "domcontentloaded" });
 }
 
-async function executeWait(page, step) {
+async function executeWait(page, step, parameters, commandParameters) {
     const timeout = step.timeout || 10000;
-    const selector = step.target?.selector || step.selector;
+    let selector = step.target?.selector || step.selector;
 
     if (selector) {
+        selector = resolveTemplateString(selector, parameters, commandParameters);
         console.log(`Waiting for selector: ${selector}...`);
         const locator = page.locator(selector).first();
         await locator.waitFor({ state: "visible", timeout });
     } else if (step.url) {
-        console.log(`Waiting for URL: ${step.url}...`);
-        await page.waitForURL(step.url, { timeout });
+        const url = resolveTemplateString(step.url, parameters, commandParameters);
+        console.log(`Waiting for URL: ${url}...`);
+        await page.waitForURL(url, { timeout });
     } else if (step.duration) {
         console.log(`Waiting for duration: ${step.duration}ms...`);
         await page.waitForTimeout(step.duration);
     }
 }
 
-async function executeClick(page, step) {
+async function executeClick(page, step, parameters, commandParameters) {
     const target = step.target;
 
     console.log(
@@ -75,16 +79,16 @@ async function executeClick(page, step) {
         );
     }
 
+    const selector = resolveTemplateString(target.selector, parameters, commandParameters);
+
     console.log(
         "Using selector:",
-        target.selector
+        selector
     );
 
-    const locator = page.locator(
-        target.selector
-    ).first();
+    const locator = page.locator(selector).first();
 
-    console.log(`Waiting for element to be visible: ${target.selector}`);
+    console.log(`Waiting for element to be visible: ${selector}`);
     await locator.waitFor({ state: "visible", timeout: 10000 });
 
     await locator.click();
@@ -111,7 +115,8 @@ async function executeInput(
     let locator = null;
 
     if (target?.selector) {
-        locator = page.locator(target.selector).first();
+        const selector = resolveTemplateString(target.selector, parameters, commandParameters);
+        locator = page.locator(selector).first();
     } else if (target?.name) {
         locator = page.locator(`[name="${target.name}"]`).first();
     } else if (target?.placeholder) {
@@ -130,29 +135,43 @@ async function executeInput(
     console.log("Input successful.");
 }
 
-function resolveValue(value, parameters, commandParameters = []) {
-    if (
-        typeof value !== "string"
-    ) {
+export function resolveTemplateString(str, parameters = {}, commandParameters = []) {
+    if (typeof str !== "string") return str;
+
+    return str.replace(/\{\{\s*([a-zA-Z0-9_-]+)\s*\}\}/g, (match, paramName) => {
+        if (paramName in parameters) {
+            return String(parameters[paramName]);
+        }
+
+        const cmdParam = Array.isArray(commandParameters)
+            ? commandParameters.find(p => p.name === paramName)
+            : null;
+
+        if (cmdParam && cmdParam.default !== undefined) {
+            return String(cmdParam.default);
+        }
+
+        return match;
+    });
+}
+
+export function resolveValue(value, parameters, commandParameters = []) {
+    if (typeof value !== "string") {
         return value;
     }
 
-    const match = value.match(
-        /^\{\{(.+)\}\}$/
-    );
+    const match = value.match(/^\{\{\s*([a-zA-Z0-9_-]+)\s*\}\}$/);
 
     if (!match) {
-        return value;
+        return resolveTemplateString(value, parameters, commandParameters);
     }
 
-    const parameterName =
-        match[1].trim();
+    const parameterName = match[1].trim();
 
     if (parameterName in parameters) {
         return parameters[parameterName];
     }
 
-    // Check if default value exists in command definition
     const cmdParam = Array.isArray(commandParameters)
         ? commandParameters.find(p => p.name === parameterName)
         : null;

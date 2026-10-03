@@ -1,14 +1,14 @@
 import fs from "fs/promises";
 import path from "path";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import os from "os";
 
-const PROJECT_ROOT = path.resolve(__dirname, "../../");
+
+
+const SITECMD_DIR = path.join(os.homedir(), ".sitecmd");
 
 const COMMANDS_DIR = path.join(
-    PROJECT_ROOT,
+    SITECMD_DIR,
     "data",
     "commands"
 );
